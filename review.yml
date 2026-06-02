@@ -1,0 +1,187 @@
+aid: playfab
+reviewed: '2026-05-30'
+reviewer: API Evangelist
+scope: PlayStream streaming and webhook surface assessment
+summary: >-
+  PlayFab (Azure PlayFab, Microsoft's game backend) exposes two
+  documented outbound event-delivery surfaces on top of the PlayStream
+  event pipeline: classic PlayStream Webhooks, and Data Connections.
+  Both move PlayStream / Telemetry events out of PlayFab to a
+  customer-controlled destination in near-real time. Neither is
+  managed through a publicly documented REST control plane: webhook
+  destinations are created and edited only in the PlayFab Game
+  Manager Data > Webhooks panel, and Data Connections are created and
+  edited only in Game Manager or through the unpublished Game Manager
+  backend. The PlayFab REST API does include Play Stream operations
+  in the Admin surface, but those cover player tags, segments, and
+  segment exports — not webhook or data-connection management.
+streaming:
+  hasPublicStreamingSurface: true
+  surfaceClassification: Outbound webhook + managed event export
+  publicControlPlaneApi: false
+  asyncApiModelable: partial
+  reason: >-
+    The delivery contract for PlayStream Webhooks is documented
+    (POST a PlayStream event JSON envelope to a user-supplied
+    Endpoint URI, optionally batched as a JSON array, with up to
+    three custom request headers configured in Game Manager).
+    That delivery contract is modelable as an AsyncAPI HTTP webhook
+    channel from the receiver's perspective. What is NOT modelable
+    as a public REST or OpenAPI surface is webhook destination
+    management — there are no documented PlayFab REST methods to
+    create, list, update, delete, or test webhook destinations or
+    Data Connections. Management is performed exclusively through
+    the PlayFab Game Manager UI.
+surfaces:
+  - name: PlayStream Webhooks
+    type: Outbound HTTP webhook
+    direction: PlayFab -> customer endpoint
+    transport: HTTPS POST
+    payload: application/json
+    documented: true
+    publiclyManageable: false
+    managementChannel: PlayFab Game Manager > Data > Webhooks
+    documentationUrl: >-
+      https://learn.microsoft.com/en-us/gaming/playfab/data-analytics/acting-data/webhooks-overview
+    configurationFields:
+      - name: Name
+        description: Unique webhook name.
+      - name: Endpoint URI
+        description: Customer URI that receives the POST request.
+      - name: Enabled
+        description: Boolean; allows pausing without deleting.
+      - name: Post multiple events in JSON array
+        description: >-
+          When enabled, multiple events are batched into a single
+          POST as a JSON array. Receiver must handle both array and
+          single-event bodies.
+      - name: Request headers
+        description: >-
+          Up to three custom request headers. Header keys up to 64
+          characters, values up to 256 characters. Documented use
+          case is forwarding shared secrets to Azure Event Hubs,
+          Azure Functions, Google Functions, and AWS Lambda.
+      - name: Filters
+        description: >-
+          Filter by Event Name, Event Source, and PlayerID. Multiple
+          filters can be grouped; an event matches the webhook if it
+          satisfies all filters in at least one Filter Group.
+    deliveryConstraints:
+      - PlayFab does not document HMAC signing, signature headers,
+        or replay protection. Authentication of inbound webhook
+        traffic is delegated to the customer's choice of shared
+        secret in the configured request headers.
+      - Status column shows "Failing Since" timestamp once an
+        endpoint stops returning OK. Retry policy and backoff are
+        not publicly documented.
+      - Entity PlayStream events are explicitly NOT forwarded via
+        webhooks.
+    recommendedUseCase: >-
+      Lightweight reactive integrations and per-event fan-out to
+      Azure Functions / AWS Lambda / Google Functions. For higher
+      throughput offline analytics, PlayFab now recommends
+      Automation Rules (V2 actions) or Data Connections instead.
+  - name: PlayFab Data Connections
+    type: Managed continuous event export
+    direction: PlayFab -> customer-owned cloud storage / analytics store
+    transport: Provider-native (Azure Blob, Azure Data Explorer, Microsoft Fabric KQL, AWS S3 preview)
+    payload: Parquet (Blob, S3) or native ingest (ADX, Fabric KQL)
+    documented: true
+    publiclyManageable: false
+    managementChannel: PlayFab Game Manager > Data > Data Connections
+    documentationUrl: >-
+      https://learn.microsoft.com/en-us/gaming/playfab/data-analytics/export-data/data-connection-overview
+    supportedDestinations:
+      - Azure Blob Storage (Parquet)
+      - Azure Data Explorer (ADX)
+      - Microsoft Fabric KQL database
+      - Amazon S3 (preview)
+    deliveryConstraints:
+      - Documented near-real-time delivery with under five minute
+        ingestion latency.
+      - Built-in automatic retry mechanism on distribution failure.
+      - Replaces the legacy Event Export and S3 Event Archive
+        features.
+      - Customer supplies and owns the destination storage account
+        and IAM/role configuration.
+    recommendedUseCase: >-
+      Bulk analytics, BI, machine learning, and long-term retention
+      of PlayStream + Telemetry data in a customer-controlled lake.
+  - name: PlayFab Events REST API (event ingestion)
+    type: Inbound REST event write
+    direction: Customer -> PlayFab
+    transport: HTTPS POST (synchronous request/response)
+    documented: true
+    publiclyManageable: true
+    note: >-
+      Already modeled in apis.yml as playfab:playfab-events-api.
+      Listed here only for completeness — this is the write path
+      INTO PlayStream, not an outbound streaming surface.
+    documentationUrl: https://learn.microsoft.com/en-us/rest/api/playfab/events/
+findings:
+  - id: webhook-management-not-public-rest
+    severity: medium
+    statement: >-
+      PlayStream Webhook destinations cannot be created or managed
+      through the public PlayFab REST API. Only the PlayFab Game
+      Manager UI is documented for webhook CRUD. There is no
+      AddWebhook / GetWebhooks / UpdateWebhook / DeleteWebhook /
+      TestWebhook method documented in any of the Client, Server,
+      Admin, Authentication, CloudScript, Multiplayer, Matchmaking,
+      Economy, Data, Groups, Profiles, Events, Insights, or
+      Localization REST groups.
+  - id: webhook-deprecation-soft-signal
+    severity: low
+    statement: >-
+      Microsoft recommends Automation Rules over Webhooks in the
+      official Webhooks Overview page, citing V2 actions and
+      feature parity. Webhooks remain documented and operational
+      but should be treated as a stable legacy surface rather than
+      a forward-looking integration path.
+  - id: no-signing-or-replay-protection-documented
+    severity: medium
+    statement: >-
+      PlayFab does not document an outbound webhook signing
+      mechanism (HMAC, shared signing key, X-PlayFab-Signature, or
+      similar). Authentication of webhook traffic relies on
+      customer-supplied static request headers, which are limited
+      to three headers, 64-char keys, and 256-char values.
+  - id: entity-events-excluded
+    severity: low
+    statement: >-
+      Entity PlayStream events are explicitly excluded from webhook
+      forwarding. Customers requiring Entity-model event streams
+      should use Data Connections.
+  - id: admin-playstream-group-is-not-webhooks
+    severity: info
+    statement: >-
+      The Admin REST API includes a "Play Stream" operation group,
+      but its methods (Add Player Tag, Export Players In Segment,
+      Get All Segments, Get Player Segments, Get Player Tags, Get
+      Segment Export, Remove Player Tag) operate on player tags and
+      segment exports — not on webhook destinations or event
+      sinks.
+recommendations:
+  - Publish a PlayFab REST surface for webhook destination
+    management (Create / Update / List / Delete / Test) so that
+    integrations can be provisioned through infrastructure-as-code
+    rather than Game Manager click-ops.
+  - Publish a REST surface for Data Connection management for the
+    same reason.
+  - Document an outbound webhook signing scheme (HMAC over body,
+    signature header, replay timestamp) so receivers can verify
+    payload authenticity without relying on shared-secret headers.
+  - Document the webhook retry policy, backoff schedule, and
+    "Failing Since" disablement threshold so receivers can design
+    reliable consumers.
+sources:
+  - https://learn.microsoft.com/en-us/gaming/playfab/data-analytics/acting-data/webhooks-overview
+  - https://learn.microsoft.com/en-us/gaming/playfab/data-analytics/acting-data/action-rules-overview
+  - https://learn.microsoft.com/en-us/gaming/playfab/data-analytics/acting-data/action-rules-quickstart
+  - https://learn.microsoft.com/en-us/gaming/playfab/data-analytics/export-data/data-connection-overview
+  - https://learn.microsoft.com/en-us/gaming/playfab/data-analytics/ingest-data/playstream-overview
+  - https://learn.microsoft.com/en-us/rest/api/playfab/admin/play-stream
+  - https://learn.microsoft.com/en-us/rest/api/playfab/admin/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
