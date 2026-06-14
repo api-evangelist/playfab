@@ -1,0 +1,931 @@
+"""
+Azure PlayFab GraphQL Schema
+Derived from the PlayFab REST API surface:
+  Client, Server, Admin, Authentication, CloudScript, Multiplayer,
+  Economy v2, Matchmaking, Insights, Groups, Data, Profiles, Events, Localization
+Reference: https://learn.microsoft.com/en-us/rest/api/playfab/
+"""
+
+# ─── Scalars ─────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+
+# ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum EntityTypeEnum {
+  TITLE
+  MASTER_PLAYER_ACCOUNT
+  TITLE_PLAYER_ACCOUNT
+  CHARACTER
+  GROUP
+  SERVICE
+  NAMESPACE
+}
+
+enum LoginProvider {
+  CUSTOM_ID
+  EMAIL_ADDRESS
+  FACEBOOK
+  GOOGLE
+  APPLE
+  XBOX
+  STEAM
+  PLAYSTATION
+  TWITCH
+  KONGREGATE
+  GAME_CENTER
+  WINDOWS_HELLO
+  OPENID_CONNECT
+}
+
+enum StatisticVersion {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum SegmentType {
+  ALL_PLAYERS
+  FILTER
+  PUSH_NOTIFICATION
+  SCHEDULE
+}
+
+enum TradeStatus {
+  OPEN
+  ACCEPTING
+  ACCEPTED
+  FILLED
+  CANCELLED
+  EXPIRED
+  INVALID
+}
+
+enum CloudScriptRevisionOption {
+  LIVE
+  LATEST
+  SPECIFIC
+}
+
+enum CatalogAlternateIdType {
+  FRIENDLY_ID
+  MARKETPLACE_ID
+  CUSTOM_ID
+}
+
+enum PermissionLevel {
+  READ
+  WRITE
+}
+
+# ─── Entity Model ─────────────────────────────────────────────────────────────
+
+"""Typed entity key used across the PlayFab Entity Programming Model."""
+type EntityKey {
+  id: String!
+  type: EntityTypeEnum!
+}
+
+"""Opaque entity type descriptor."""
+type EntityType {
+  name: String!
+  description: String
+}
+
+"""Short-lived token authorizing entity-scoped API calls."""
+type EntityToken {
+  entityKey: EntityKey!
+  token: String!
+  tokenExpiration: DateTime
+}
+
+"""Full entity descriptor including lineage."""
+type EntityDetails {
+  entityKey: EntityKey!
+  displayName: String
+  language: String
+  lineage: EntityLineage
+  created: DateTime
+  lastUpdated: DateTime
+}
+
+"""Ancestry chain for a given entity."""
+type EntityLineage {
+  masterPlayerAccountId: String
+  titlePlayerAccountId: String
+  characterId: String
+  groupId: String
+  titleId: String
+  namespaceId: String
+}
+
+"""Lightweight entity reference."""
+type Entity {
+  id: String!
+  type: EntityTypeEnum!
+  displayName: String
+}
+
+"""Segment membership for an entity."""
+type UserSegment {
+  segmentId: String!
+  segmentName: String
+}
+
+# ─── Authentication ────────────────────────────────────────────────────────────
+
+"""Authentication request parameters."""
+type AuthDetails {
+  provider: LoginProvider!
+  titleId: String!
+  infoRequestParameters: JSON
+  playerSecret: String
+}
+
+"""Successful login / authentication result."""
+type Auth {
+  sessionTicket: String
+  entityToken: EntityToken
+  playFabId: String!
+  newlyCreated: Boolean!
+  settingsForUser: UserSettings
+  lastLoginTime: DateTime
+}
+
+"""Per-player settings negotiated at login."""
+type UserSettings {
+  needsAttribution: Boolean!
+  gatherDeviceInfo: Boolean!
+  gatherFocusInfo: Boolean!
+}
+
+# ─── Login ─────────────────────────────────────────────────────────────────────
+
+"""Login request wrapper."""
+type Login {
+  provider: LoginProvider!
+  titleId: String!
+  createAccount: Boolean
+}
+
+"""Full result returned from any Login* call."""
+type LoginResult {
+  sessionTicket: String
+  playFabId: String!
+  newlyCreated: Boolean!
+  entityToken: EntityToken
+  infoResultPayload: PlayerCombinedInfo
+  lastLoginTime: DateTime
+  settingsForUser: UserSettings
+}
+
+"""Aggregated player info blob returned in login payloads."""
+type PlayerCombinedInfo {
+  accountInfo: PlayerDetails
+  userInventory: [InventoryDetails]
+  userVirtualCurrency: JSON
+  playerStatistics: [PlayerStatistic]
+  playerProfile: PlayerProfile
+  titleData: JSON
+  userData: JSON
+  readOnlyData: JSON
+}
+
+# ─── Player ─────────────────────────────────────────────────────────────────────
+
+"""Core player/account record."""
+type Player {
+  playFabId: String!
+  titleId: String!
+  displayName: String
+  realName: String
+  gender: String
+  created: DateTime
+  lastUpdated: DateTime
+  origination: LoginProvider
+  bannedUntil: DateTime
+  segments: [UserSegment]
+  locations: [PlayerLocation]
+  linkedAccounts: [LinkedAccount]
+  statistics: [PlayerStatistic]
+}
+
+"""Detailed account information for a player."""
+type PlayerDetails {
+  playFabId: String!
+  titleId: String
+  username: String
+  email: EmailInfo
+  facebook: FacebookInfo
+  google: GoogleInfo
+  apple: AppleInfo
+  xbox: XboxInfo
+  steam: SteamInfo
+  customIdInfo: CustomId
+  created: DateTime
+  lastUpdated: DateTime
+  avatarUrl: String
+}
+
+"""Mutable player key-value data bucket."""
+type PlayerData {
+  playFabId: String!
+  dataVersion: Int!
+  data: JSON
+  lastUpdated: DateTime
+}
+
+"""Entity-profile-level player record (Profiles API)."""
+type PlayerProfile {
+  publisherId: String
+  titleId: String!
+  playerId: String!
+  displayName: String
+  created: DateTime
+  lastLogin: DateTime
+  origination: LoginProvider
+  bannedUntil: DateTime
+  statistics: [PlayerStatistic]
+  locations: [PlayerLocation]
+  linkedAccounts: [LinkedAccount]
+  totalValueToDateInUSD: Float
+  virtualCurrencyBalances: JSON
+}
+
+"""Single named statistic value for a player."""
+type PlayerStatistic {
+  statisticName: String!
+  value: Int!
+  version: Int!
+}
+
+"""Geographic location associated with a player session."""
+type PlayerLocation {
+  continentCode: String
+  countryCode: String!
+  city: String
+  latitude: Float
+  longitude: Float
+}
+
+# ─── Linked Accounts / Identity Providers ─────────────────────────────────────
+
+"""Custom developer-assigned identifier linked to a player."""
+type CustomId {
+  customId: String!
+  playFabId: String!
+}
+
+"""Account link to an external identity provider."""
+type LinkedAccount {
+  platform: LoginProvider!
+  platformUserId: String
+  username: String
+  email: String
+}
+
+"""Email address record for a player account."""
+type EmailInfo {
+  emailAddress: String!
+  verified: Boolean!
+  name: String
+}
+
+"""Facebook account link."""
+type FacebookInfo {
+  facebookId: String!
+  fullName: String
+}
+
+"""Google account link."""
+type GoogleInfo {
+  googleId: String!
+  googleEmail: String
+  googleLocale: String
+  googleGender: String
+}
+
+"""Apple account link (Sign in with Apple)."""
+type AppleInfo {
+  appleSubjectId: String!
+}
+
+"""Xbox Live account link."""
+type XboxInfo {
+  xboxUserId: String!
+  xboxUserSandbox: String
+}
+
+"""Steam account link."""
+type SteamInfo {
+  steamId: String!
+  steamCountry: String
+  steamCurrency: String
+  steamActivationStatus: String
+}
+
+# ─── CloudScript ───────────────────────────────────────────────────────────────
+
+"""CloudScript execution request."""
+type CloudScript {
+  functionName: String!
+  functionParameter: JSON
+  revisionSelection: CloudScriptRevisionOption
+  specificRevision: Int
+  generatePlayStreamEvent: Boolean
+}
+
+"""Result from a CloudScript function execution."""
+type CloudScriptResult {
+  functionName: String!
+  revision: Int!
+  functionResult: JSON
+  functionResultTooLarge: Boolean
+  logs: [LogStatement]
+  executionTimeSeconds: Float
+  memoryConsumedBytes: Int
+  apiRequestsIssued: Int
+  httpRequestsIssued: Int
+  error: ScriptExecutionError
+}
+
+"""A single log line emitted by CloudScript."""
+type LogStatement {
+  level: String!
+  message: String!
+  data: JSON
+}
+
+"""Error details from a failed CloudScript execution."""
+type ScriptExecutionError {
+  error: String!
+  message: String
+  stackTrace: String
+}
+
+# ─── Catalog & Economy ─────────────────────────────────────────────────────────
+
+"""Summary of a catalog item."""
+type ItemDetails {
+  itemId: String!
+  itemClass: String
+  catalogVersion: String
+  displayName: String
+  description: String
+  virtualCurrencyPrices: JSON
+  realCurrencyPrices: JSON
+  releaseDate: DateTime
+  expirationDate: DateTime
+  isFree: Boolean
+  notForSale: Boolean
+  notForTrade: Boolean
+  tags: [String]
+  customData: String
+  consumable: CatalogConsumable
+  container: CatalogContainer
+  bundle: CatalogBundle
+}
+
+"""Consumable details for a catalog item."""
+type CatalogConsumable {
+  usageCount: Int
+  usagePeriod: Int
+  usagePeriodGroup: String
+}
+
+"""Container details for a catalog item."""
+type CatalogContainer {
+  keyItemId: String
+  itemContents: [String]
+  resultTableContents: [String]
+  virtualCurrencyContents: JSON
+}
+
+"""Bundle details for a catalog item."""
+type CatalogBundle {
+  bundledItems: [String]
+  bundledResultTables: [String]
+  bundledVirtualCurrencies: JSON
+}
+
+"""Top-level catalog descriptor."""
+type Catalog {
+  catalogVersion: String!
+  items: [ItemDetails]
+}
+
+"""Extended catalog metadata."""
+type CatalogDetails {
+  catalogVersion: String!
+  isDefault: Boolean!
+  size: Int
+  created: DateTime
+  lastModified: DateTime
+}
+
+"""Catalog version record."""
+type Version {
+  versionNumber: Int!
+  status: StatisticVersion
+  activatedTime: DateTime
+  scheduledActivationTime: DateTime
+  scheduledDeactivationTime: DateTime
+  deactivatedTime: DateTime
+}
+
+"""Named version of a virtual-currency catalog."""
+type CatalogVersion {
+  catalogVersion: String!
+  isDefault: Boolean!
+}
+
+# ─── Store ─────────────────────────────────────────────────────────────────────
+
+"""Store descriptor."""
+type Store {
+  storeId: String!
+  catalogVersion: String
+  marketingData: StoreMarketingData
+  source: StoreSource
+  store: [StoreItem]
+}
+
+"""Extended store metadata."""
+type StoreDetails {
+  storeId: String!
+  catalogVersion: String
+  marketingData: StoreMarketingData
+  store: [StoreItem]
+  created: DateTime
+  lastModified: DateTime
+}
+
+"""A single item listed in a store."""
+type StoreItem {
+  itemId: String!
+  virtualCurrencyPrices: JSON
+  realCurrencyPrices: JSON
+  customData: JSON
+  displayPosition: Int
+}
+
+"""Marketing copy attached to a store."""
+type StoreMarketingData {
+  displayName: String
+  description: String
+  metadata: JSON
+}
+
+"""Source that created or populated a store."""
+type StoreSource {
+  sourceType: String!
+  sourceId: String
+}
+
+# ─── Virtual Currency ──────────────────────────────────────────────────────────
+
+"""Virtual currency definition."""
+type VirtualCurrency {
+  currencyCode: String!
+  displayName: String
+  initialDeposit: Int
+  rechargeRate: Int
+  rechargeMax: Int
+}
+
+"""Virtual currency grant record."""
+type VirtualCurrencyGrant {
+  playFabId: String!
+  currencyCode: String!
+  amountGranted: Int!
+  balanceAfterOperation: Int!
+}
+
+# ─── Inventory ─────────────────────────────────────────────────────────────────
+
+"""Full inventory of a player."""
+type UserInventory {
+  inventory: [InventoryDetails]
+  virtualCurrency: JSON
+  virtualCurrencyRechargeTimes: JSON
+}
+
+"""A single inventory item instance."""
+type InventoryDetails {
+  itemInstanceId: String!
+  itemId: String!
+  catalogVersion: String
+  displayName: String
+  unitCurrency: String
+  unitPrice: Int
+  purchaseDate: DateTime
+  expiration: DateTime
+  annotation: String
+  usesIncrementedBy: Int
+  remainingUses: Int
+  customData: JSON
+}
+
+# ─── Economy ──────────────────────────────────────────────────────────────────
+
+"""Economy operation request (grant, purchase, consume)."""
+type Economy {
+  playFabId: String!
+  catalogVersion: String
+  items: [String]
+  virtualCurrency: String
+  amount: Int
+}
+
+"""Result of granting catalog items to a player."""
+type GrantItems {
+  playFabId: String!
+  itemGrantResults: [InventoryDetails]
+}
+
+"""Result of redeeming a coupon code."""
+type RedeemCoupon {
+  grantedItems: [InventoryDetails]
+}
+
+# ─── Trade ─────────────────────────────────────────────────────────────────────
+
+"""Trade request details."""
+type TradeDetails {
+  offeredInventoryInstanceIds: [String]!
+  requestedCatalogItemIds: [String]
+  allowedPlayerIds: [String]
+}
+
+"""Active trade record."""
+type Trade {
+  tradeId: String!
+  offeringPlayerId: String!
+  offeredInventoryInstanceIds: [String]!
+  requestedCatalogItemIds: [String]
+  allowedPlayerIds: [String]
+  acceptedPlayerId: String
+  acceptedInventoryInstanceIds: [String]
+  openedAt: DateTime
+  filledAt: DateTime
+  cancelledAt: DateTime
+  status: TradeStatus!
+}
+
+# ─── Leaderboards ─────────────────────────────────────────────────────────────
+
+"""Leaderboard query descriptor."""
+type Leaderboard {
+  statisticName: String!
+  version: Int
+  startPosition: Int
+  maxResultsCount: Int
+}
+
+"""Extended leaderboard metadata."""
+type LeaderboardDetails {
+  statisticName: String!
+  version: Int!
+  leaderboard: [Entry]
+  nextReset: DateTime
+}
+
+"""A single leaderboard entry."""
+type Entry {
+  playFabId: String!
+  displayName: String
+  statisticValue: Int!
+  position: Int!
+  profile: PlayerProfile
+}
+
+"""Rank of a player on a leaderboard."""
+type Rank {
+  playFabId: String!
+  statisticName: String!
+  statisticValue: Int!
+  position: Int!
+}
+
+# ─── Statistics ────────────────────────────────────────────────────────────────
+
+"""Statistics container for a player."""
+type Statistics {
+  playFabId: String!
+  statistics: [PlayerStatistic]!
+}
+
+"""Versioned statistic definition."""
+type StatisticVersion {
+  statisticName: String!
+  version: Int!
+  scheduledActivationTime: DateTime
+  activationTime: DateTime
+  scheduledDeactivationTime: DateTime
+  deactivationTime: DateTime
+  archivalStatus: String
+  archiveDownloadUrl: String
+}
+
+"""Achievement definition."""
+type Achievement {
+  achievementId: String!
+  name: String!
+  description: String
+  iconUrl: String
+  targetValue: Int!
+  statisticName: String
+}
+
+# ─── Segments ─────────────────────────────────────────────────────────────────
+
+"""Extended segment definition."""
+type SegmentDetails {
+  segmentId: String!
+  name: String!
+  type: SegmentType
+  filter: JSON
+  memberCount: Int
+  created: DateTime
+  lastModified: DateTime
+}
+
+"""Lightweight segment reference."""
+type Segment {
+  segmentId: String!
+  name: String!
+}
+
+"""Cohort details for A/B testing."""
+type CohortDetails {
+  cohortId: String!
+  segmentId: String!
+  name: String!
+  ab_testId: String
+  playerCount: Int
+  percentage: Float
+}
+
+# ─── Groups ───────────────────────────────────────────────────────────────────
+
+"""Group entity (guild, clan, party)."""
+type Group {
+  group: EntityKey!
+  groupName: String!
+  profileVersion: Int!
+  memberCount: Int
+}
+
+"""Extended group record."""
+type GroupDetails {
+  group: EntityKey!
+  groupName: String!
+  profileVersion: Int!
+  adminRoleId: String
+  memberRoleId: String
+  members: [GroupMembership]
+  roles: [GroupRole]
+  created: DateTime
+}
+
+"""Membership record linking an entity to a group."""
+type GroupMembership {
+  entity: EntityKey!
+  roleId: String!
+  roleName: String
+  joinedAt: DateTime
+}
+
+"""A role within a group."""
+type GroupRole {
+  roleId: String!
+  roleName: String!
+}
+
+# ─── Characters ────────────────────────────────────────────────────────────────
+
+"""Character record under a player account."""
+type CharacterDetails {
+  characterId: String!
+  characterName: String!
+  characterType: String
+  playFabId: String!
+}
+
+"""Key-value data attached to a character."""
+type CharacterData {
+  characterId: String!
+  playFabId: String!
+  dataVersion: Int!
+  data: JSON
+}
+
+"""A statistic scoped to a character."""
+type CharacterStatistic {
+  characterId: String!
+  statisticName: String!
+  value: Int!
+}
+
+# ─── Events & Telemetry ────────────────────────────────────────────────────────
+
+"""Batch of events to write."""
+type Events {
+  events: [EventData]!
+}
+
+"""A single telemetry / PlayStream event."""
+type EventData {
+  eventNamespace: String!
+  name: String!
+  origination: String
+  originationId: String
+  timestamp: DateTime
+  body: JSON
+}
+
+"""A player-scoped PlayStream event record."""
+type PlayerEvent {
+  eventId: String!
+  eventName: String!
+  playFabId: String!
+  timestamp: DateTime!
+  eventData: JSON
+}
+
+# ─── Title Data ────────────────────────────────────────────────────────────────
+
+"""Title-level key-value data."""
+type TitleData {
+  key: String!
+  value: String
+  lastUpdated: DateTime
+}
+
+# ─── API / Secret Keys ─────────────────────────────────────────────────────────
+
+"""API key associated with a title."""
+type APIKey {
+  keyId: String!
+  titleId: String!
+  active: Boolean!
+  created: DateTime
+  note: String
+}
+
+"""Developer secret key reference (never returns raw secret)."""
+type SecretKey {
+  keyId: String!
+  titleId: String!
+  active: Boolean!
+  created: DateTime
+  disabled: Boolean!
+}
+
+# ─── Query ─────────────────────────────────────────────────────────────────────
+
+type Query {
+  # Player
+  getPlayer(playFabId: String!): Player
+  getPlayerDetails(playFabId: String!): PlayerDetails
+  getPlayerProfile(playFabId: String!, titleId: String): PlayerProfile
+  getPlayerData(playFabId: String!, keys: [String]): PlayerData
+  getPlayerStatistics(playFabId: String!): Statistics
+
+  # Login / Auth (read-only metadata)
+  getEntityToken(entityKey: EntityKey!): EntityToken
+  getEntityDetails(entityKey: EntityKey!): EntityDetails
+
+  # Catalog / Economy
+  getCatalogItems(catalogVersion: String): Catalog
+  getCatalogDetails(catalogVersion: String!): CatalogDetails
+  getStoreItems(storeId: String!, catalogVersion: String): Store
+  getStoreDetails(storeId: String!): StoreDetails
+  getVirtualCurrencies(playFabId: String!): UserInventory
+
+  # Inventory
+  getUserInventory(playFabId: String!): UserInventory
+  getInventoryItem(playFabId: String!, itemInstanceId: String!): InventoryDetails
+
+  # Characters
+  getCharacters(playFabId: String!): [CharacterDetails]
+  getCharacterData(playFabId: String!, characterId: String!, keys: [String]): CharacterData
+  getCharacterStatistics(playFabId: String!, characterId: String!): [CharacterStatistic]
+
+  # Leaderboards
+  getLeaderboard(statisticName: String!, startPosition: Int, maxResults: Int): LeaderboardDetails
+  getPlayerRank(playFabId: String!, statisticName: String!): Rank
+  getLeaderboardAroundPlayer(playFabId: String!, statisticName: String!, maxResults: Int): LeaderboardDetails
+
+  # Trades
+  getTrade(playFabId: String!, tradeId: String!): Trade
+  getPlayerTrades(playFabId: String!): [Trade]
+
+  # CloudScript
+  getCloudScriptRevision(version: Int): CloudScript
+
+  # Groups
+  getGroup(groupId: String!): GroupDetails
+  listGroupMembers(groupId: String!): [GroupMembership]
+
+  # Segments
+  getSegments: [Segment]
+  getSegmentDetails(segmentId: String!): SegmentDetails
+  getPlayersInSegment(segmentId: String!, maxBatchSize: Int): [Player]
+
+  # Title Data
+  getTitleData(keys: [String]): [TitleData]
+
+  # Events
+  getPlayerEvents(playFabId: String!, startTime: DateTime, endTime: DateTime): [PlayerEvent]
+}
+
+# ─── Mutation ─────────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Authentication
+  loginWithCustomId(titleId: String!, customId: String!, createAccount: Boolean): LoginResult
+  loginWithEmailAddress(titleId: String!, email: String!, password: String!): LoginResult
+  loginWithFacebook(titleId: String!, accessToken: String!): LoginResult
+  loginWithGoogle(titleId: String!, serverAuthCode: String!): LoginResult
+  loginWithApple(titleId: String!, identityToken: String!): LoginResult
+  loginWithXbox(titleId: String!, xboxToken: String!): LoginResult
+  loginWithSteam(titleId: String!, steamTicket: String!): LoginResult
+
+  # Player Data
+  updatePlayerData(playFabId: String!, data: JSON!, keysToRemove: [String]): PlayerData
+  updatePlayerStatistics(playFabId: String!, statistics: [PlayerStatisticInput]!): Statistics
+
+  # Virtual Currency
+  addVirtualCurrency(playFabId: String!, currencyCode: String!, amount: Int!): VirtualCurrencyGrant
+  subtractVirtualCurrency(playFabId: String!, currencyCode: String!, amount: Int!): VirtualCurrencyGrant
+
+  # Inventory
+  grantItemsToPlayer(playFabId: String!, catalogVersion: String, itemIds: [String]!): GrantItems
+  redeemCoupon(playFabId: String!, couponCode: String!, catalogVersion: String): RedeemCoupon
+  consumeItem(playFabId: String!, itemInstanceId: String!, count: Int!): InventoryDetails
+  revokeInventoryItem(playFabId: String!, itemInstanceId: String!): Boolean
+
+  # Characters
+  grantCharacter(playFabId: String!, characterName: String!, characterType: String!): CharacterDetails
+  updateCharacterData(playFabId: String!, characterId: String!, data: JSON!): CharacterData
+  updateCharacterStatistics(playFabId: String!, characterId: String!, statistics: JSON!): [CharacterStatistic]
+  deleteCharacter(playFabId: String!, characterId: String!): Boolean
+
+  # Trades
+  openTrade(playFabId: String!, trade: TradeDetailsInput!): Trade
+  acceptTrade(playFabId: String!, tradeId: String!, offeringPlayerId: String!, acceptedInventoryInstanceIds: [String]!): Trade
+  cancelTrade(playFabId: String!, tradeId: String!): Trade
+
+  # CloudScript
+  executeCloudScript(playFabId: String!, functionName: String!, functionParameter: JSON, generatePlayStreamEvent: Boolean): CloudScriptResult
+  executeFunction(entityKey: EntityKeyInput!, functionName: String!, functionParameter: JSON): CloudScriptResult
+
+  # Groups
+  createGroup(groupName: String!): GroupDetails
+  deleteGroup(groupId: String!): Boolean
+  addGroupMembers(groupId: String!, members: [EntityKeyInput]!, roleId: String): Boolean
+  removeGroupMembers(groupId: String!, members: [EntityKeyInput]!): Boolean
+  updateGroupRole(groupId: String!, roleId: String!, roleName: String!): GroupRole
+
+  # Events
+  writePlayerEvent(playFabId: String!, event: EventDataInput!): Boolean
+  writeEvents(events: [EventDataInput]!): Boolean
+
+  # Title Data
+  setTitleData(key: String!, value: String): TitleData
+
+  # Player Admin
+  banPlayer(playFabId: String!, durationInHours: Int, reason: String): Player
+  unbanPlayer(playFabId: String!): Player
+  resetPassword(playFabId: String!, password: String!): Boolean
+  deletePlayer(playFabId: String!): Boolean
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input EntityKeyInput {
+  id: String!
+  type: EntityTypeEnum!
+}
+
+input PlayerStatisticInput {
+  statisticName: String!
+  value: Int!
+}
+
+input TradeDetailsInput {
+  offeredInventoryInstanceIds: [String]!
+  requestedCatalogItemIds: [String]
+  allowedPlayerIds: [String]
+}
+
+input EventDataInput {
+  eventNamespace: String!
+  name: String!
+  origination: String
+  originationId: String
+  timestamp: DateTime
+  body: JSON
+}
