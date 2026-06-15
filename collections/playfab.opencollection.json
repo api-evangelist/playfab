@@ -1,0 +1,229 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayFab Client API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Authorization",
+      "value": "{{X-Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sign in with a PlayFab username and password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithPlayFab",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with a PlayFab username and password"
+        },
+        {
+          "info": {
+            "name": "Sign in with an email address and password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithEmailAddress",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with an email address and password"
+        },
+        {
+          "info": {
+            "name": "Sign in with a developer-supplied custom identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithCustomID",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with a developer-supplied custom identifier"
+        },
+        {
+          "info": {
+            "name": "Sign in with an Android device identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithAndroidDeviceID",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with an Android device identifier"
+        },
+        {
+          "info": {
+            "name": "Sign in with an iOS device identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithIOSDeviceID",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with an iOS device identifier"
+        },
+        {
+          "info": {
+            "name": "Sign in with a Sign in with Apple identity token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithApple",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with a Sign in with Apple identity token"
+        },
+        {
+          "info": {
+            "name": "Sign in with Google account credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithGoogleAccount",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with Google account credentials"
+        },
+        {
+          "info": {
+            "name": "Sign in with a Steam authentication ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithSteam",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with a Steam authentication ticket"
+        },
+        {
+          "info": {
+            "name": "Sign in with an Xbox Live token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/LoginWithXbox",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sign in with an Xbox Live token"
+        },
+        {
+          "info": {
+            "name": "Register a new PlayFab user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/RegisterPlayFabUser",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new PlayFab user account"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the title's RSA public key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/GetTitlePublicKey",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the title's RSA public key"
+        },
+        {
+          "info": {
+            "name": "Get a Photon custom authentication token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/GetPhotonAuthenticationToken",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a Photon custom authentication token"
+        },
+        {
+          "info": {
+            "name": "Set the player's secret used to sign API requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/SetPlayerSecret",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the player's secret used to sign API requests"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

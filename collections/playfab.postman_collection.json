@@ -1,0 +1,1619 @@
+{
+  "item": [
+    {
+      "id": "facdabf7-e6f4-4c65-a31e-a779136aad3d",
+      "name": "Authentication",
+      "description": {
+        "content": "Login, registration, and identity provider sign-in.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e1c804b2-514c-4ee2-a441-c18369c9de15",
+          "name": "Sign in with a PlayFab username and password",
+          "request": {
+            "name": "Sign in with a PlayFab username and password",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithPlayFab"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Username\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": \"<boolean>\",\n    \"GetUserInventory\": \"<boolean>\",\n    \"GetUserVirtualCurrency\": \"<boolean>\",\n    \"GetUserData\": \"<boolean>\",\n    \"GetUserReadOnlyData\": \"<boolean>\",\n    \"GetCharacterInventories\": \"<boolean>\",\n    \"GetCharacterList\": \"<boolean>\",\n    \"GetTitleData\": \"<boolean>\",\n    \"GetPlayerStatistics\": \"<boolean>\",\n    \"GetPlayerProfile\": \"<boolean>\"\n  },\n  \"CustomTags\": {\n    \"key_0\": 9825.107639279615\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a03c20b3-2952-4963-bee3-ea8e5e00b4f1",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithPlayFab"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Username\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": false,\n    \"GetUserInventory\": false,\n    \"GetUserVirtualCurrency\": true,\n    \"GetUserData\": true,\n    \"GetUserReadOnlyData\": false,\n    \"GetCharacterInventories\": false,\n    \"GetCharacterList\": true,\n    \"GetTitleData\": true,\n    \"GetPlayerStatistics\": false,\n    \"GetPlayerProfile\": false\n  },\n  \"CustomTags\": {\n    \"key_0\": 53,\n    \"key_1\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e2240a3-fa9f-4b66-82c5-a121b3269105",
+              "name": "Failed request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithPlayFab"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Username\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": false,\n    \"GetUserInventory\": false,\n    \"GetUserVirtualCurrency\": true,\n    \"GetUserData\": true,\n    \"GetUserReadOnlyData\": false,\n    \"GetCharacterInventories\": false,\n    \"GetCharacterList\": true,\n    \"GetTitleData\": true,\n    \"GetPlayerStatistics\": false,\n    \"GetPlayerProfile\": false\n  },\n  \"CustomTags\": {\n    \"key_0\": 53,\n    \"key_1\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 554,\n  \"status\": \"string\",\n  \"error\": \"string\",\n  \"errorCode\": 1886,\n  \"errorMessage\": \"string\",\n  \"errorDetails\": {\n    \"key_0\": 8335,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 5472.0800976728215\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b463ce42-c60a-4624-922a-edd49163e6a3",
+          "name": "Sign in with an email address and password",
+          "request": {
+            "name": "Sign in with an email address and password",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithEmailAddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Email\": \"<email>\",\n  \"Password\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": \"<boolean>\",\n    \"GetUserInventory\": \"<boolean>\",\n    \"GetUserVirtualCurrency\": \"<boolean>\",\n    \"GetUserData\": \"<boolean>\",\n    \"GetUserReadOnlyData\": \"<boolean>\",\n    \"GetCharacterInventories\": \"<boolean>\",\n    \"GetCharacterList\": \"<boolean>\",\n    \"GetTitleData\": \"<boolean>\",\n    \"GetPlayerStatistics\": \"<boolean>\",\n    \"GetPlayerProfile\": \"<boolean>\"\n  },\n  \"CustomTags\": {\n    \"key_0\": false,\n    \"key_1\": 3405.3235469019405\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1e268a10-9a1f-4b73-a216-27a11b4081fb",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithEmailAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Email\": \"<email>\",\n  \"Password\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": true,\n    \"GetUserInventory\": false,\n    \"GetUserVirtualCurrency\": true,\n    \"GetUserData\": false,\n    \"GetUserReadOnlyData\": false,\n    \"GetCharacterInventories\": true,\n    \"GetCharacterList\": false,\n    \"GetTitleData\": false,\n    \"GetPlayerStatistics\": false,\n    \"GetPlayerProfile\": false\n  },\n  \"CustomTags\": {\n    \"key_0\": false,\n    \"key_1\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56690cbc-c5a6-46c4-a4f7-d82d986d2798",
+              "name": "Failed request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithEmailAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Email\": \"<email>\",\n  \"Password\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": true,\n    \"GetUserInventory\": false,\n    \"GetUserVirtualCurrency\": true,\n    \"GetUserData\": false,\n    \"GetUserReadOnlyData\": false,\n    \"GetCharacterInventories\": true,\n    \"GetCharacterList\": false,\n    \"GetTitleData\": false,\n    \"GetPlayerStatistics\": false,\n    \"GetPlayerProfile\": false\n  },\n  \"CustomTags\": {\n    \"key_0\": false,\n    \"key_1\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 554,\n  \"status\": \"string\",\n  \"error\": \"string\",\n  \"errorCode\": 1886,\n  \"errorMessage\": \"string\",\n  \"errorDetails\": {\n    \"key_0\": 8335,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 5472.0800976728215\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccea4c6e-0e3d-44a0-8418-6d7166e27703",
+          "name": "Sign in with a developer-supplied custom identifier",
+          "request": {
+            "name": "Sign in with a developer-supplied custom identifier",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithCustomID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"CustomId\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": \"<boolean>\",\n    \"GetUserInventory\": \"<boolean>\",\n    \"GetUserVirtualCurrency\": \"<boolean>\",\n    \"GetUserData\": \"<boolean>\",\n    \"GetUserReadOnlyData\": \"<boolean>\",\n    \"GetCharacterInventories\": \"<boolean>\",\n    \"GetCharacterList\": \"<boolean>\",\n    \"GetTitleData\": \"<boolean>\",\n    \"GetPlayerStatistics\": \"<boolean>\",\n    \"GetPlayerProfile\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ef62699-5019-43f6-94fa-6bcaf1398903",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithCustomID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CustomId\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\",\n  \"InfoRequestParameters\": {\n    \"GetUserAccountInfo\": true,\n    \"GetUserInventory\": false,\n    \"GetUserVirtualCurrency\": true,\n    \"GetUserData\": true,\n    \"GetUserReadOnlyData\": false,\n    \"GetCharacterInventories\": false,\n    \"GetCharacterList\": false,\n    \"GetTitleData\": false,\n    \"GetPlayerStatistics\": true,\n    \"GetPlayerProfile\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cbbe8d0-9d02-41a6-9ce3-a94dc13724fc",
+          "name": "Sign in with an Android device identifier",
+          "request": {
+            "name": "Sign in with an Android device identifier",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithAndroidDeviceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AndroidDeviceId\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"AndroidDevice\": \"<string>\",\n  \"OS\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4fa9c676-6d29-4660-9ae5-dc29aa45ad17",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithAndroidDeviceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AndroidDeviceId\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"AndroidDevice\": \"<string>\",\n  \"OS\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d14c0d8a-afad-4635-978f-c9f75492b6b1",
+          "name": "Sign in with an iOS device identifier",
+          "request": {
+            "name": "Sign in with an iOS device identifier",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithIOSDeviceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DeviceId\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"DeviceModel\": \"<string>\",\n  \"OS\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df7baad5-61a5-4f95-a864-a658708ce7aa",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithIOSDeviceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DeviceId\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"DeviceModel\": \"<string>\",\n  \"OS\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5164c57d-ae34-49ee-9ad7-1f01a0484956",
+          "name": "Sign in with a Sign in with Apple identity token",
+          "request": {
+            "name": "Sign in with a Sign in with Apple identity token",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithApple"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"IdentityToken\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d0b116dd-cf49-4173-a7d6-c9066bb41eca",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithApple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"IdentityToken\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a9d0dcd-b310-4749-a5df-4ef0c3389928",
+          "name": "Sign in with Google account credentials",
+          "request": {
+            "name": "Sign in with Google account credentials",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithGoogleAccount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TitleId\": \"<string>\",\n  \"ServerAuthCode\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56f93605-9c0d-4dca-aead-06dfbb50c15d",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithGoogleAccount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TitleId\": \"<string>\",\n  \"ServerAuthCode\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dfe2924-b417-49e0-af2b-9423a35be0e9",
+          "name": "Sign in with a Steam authentication ticket",
+          "request": {
+            "name": "Sign in with a Steam authentication ticket",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithSteam"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SteamTicket\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55134106-5264-480d-a67c-4f672863633e",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithSteam"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SteamTicket\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffcd379a-635a-4a52-98cb-4dfac55dfe65",
+          "name": "Sign in with an Xbox Live token",
+          "request": {
+            "name": "Sign in with an Xbox Live token",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "LoginWithXbox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"XboxToken\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d4cba85-883a-449d-b1b1-103a04dcef7f",
+              "name": "Logged in.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "LoginWithXbox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"XboxToken\": \"<string>\",\n  \"TitleId\": \"<string>\",\n  \"CreateAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96ec24e4-fe10-49df-a557-8ef4aa1dcfca",
+          "name": "Register a new PlayFab user account",
+          "request": {
+            "name": "Register a new PlayFab user account",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "RegisterPlayFabUser"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TitleId\": \"<string>\",\n  \"Username\": \"<string>\",\n  \"Email\": \"<email>\",\n  \"Password\": \"<string>\",\n  \"DisplayName\": \"<string>\",\n  \"RequireBothUsernameAndEmail\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d87c842-ddef-42f7-9571-eb90ba097474",
+              "name": "Account registered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "RegisterPlayFabUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TitleId\": \"<string>\",\n  \"Username\": \"<string>\",\n  \"Email\": \"<email>\",\n  \"Password\": \"<string>\",\n  \"DisplayName\": \"<string>\",\n  \"RequireBothUsernameAndEmail\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7712,\n  \"status\": \"string\",\n  \"data\": {\n    \"PlayFabId\": \"string\",\n    \"SessionTicket\": \"string\",\n    \"NewlyCreated\": false,\n    \"LastLoginTime\": \"1974-11-05T17:51:51.084Z\",\n    \"EntityToken\": {\n      \"Entity\": {\n        \"Id\": \"string\",\n        \"Type\": \"string\"\n      },\n      \"EntityToken\": \"string\",\n      \"TokenExpiration\": \"2019-01-22T14:58:52.247Z\"\n    },\n    \"InfoResultPayload\": {\n      \"key_0\": 8320,\n      \"key_1\": 7653\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "482b5162-4dc4-4b2a-8d42-bd1f346f5f4a",
+      "name": "Account",
+      "description": {
+        "content": "PlayFab account metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ae93e22-07ba-4e98-84ce-692e160e1cbf",
+          "name": "Returns the title's RSA public key",
+          "request": {
+            "name": "Returns the title's RSA public key",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "GetTitlePublicKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TitleId\": \"<string>\",\n  \"TitleSharedSecret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2dcc0133-6b52-48c0-91b3-30ddbec418e4",
+              "name": "Public key returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "GetTitlePublicKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TitleId\": \"<string>\",\n  \"TitleSharedSecret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c732d17-a294-4b0d-a797-2934830cceeb",
+          "name": "Get a Photon custom authentication token",
+          "request": {
+            "name": "Get a Photon custom authentication token",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "GetPhotonAuthenticationToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PhotonApplicationId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "159cc7b1-298d-4af2-9ce5-9613ae0bbbce",
+              "name": "Token returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "GetPhotonAuthenticationToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PhotonApplicationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d63d5445-023b-4b7c-a865-d07fc25e2b18",
+          "name": "Set the player's secret used to sign API requests",
+          "request": {
+            "name": "Set the player's secret used to sign API requests",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "SetPlayerSecret"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PlayerSecret\": \"<string>\",\n  \"EncryptedRequest\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "16296ad7-5f8d-41c0-85fc-00c1cb7adcea",
+              "name": "Player secret stored.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "SetPlayerSecret"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PlayerSecret\": \"<string>\",\n  \"EncryptedRequest\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Unique PlayFab title identifier.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "titleId",
+      "key": "titleId"
+    },
+    {
+      "type": "string",
+      "value": "https://{{titleId}}.playfabapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "67e4cf1e-19c0-4dcd-805a-04924a4446bc",
+    "name": "PlayFab Client API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PlayFab is Microsoft Azure's backend-as-a-service for live games. The\nClient API is the player-facing REST surface used by game clients for\nlogin, account linking, virtual currency, inventory, friends,\nleaderboards, statistics, player data, cloud script execution,\nmultiplayer session lookup, push registration, and analytics events.\n\nEach PlayFab title is scoped to its own subdomain at\n`https://{titleId}.playfabapi.com`, where `{titleId}` is the unique\ntitle identifier from the PlayFab Game Manager.\n\nLogin calls (`LoginWith*`, `RegisterPlayFabUser`) require no\nauthentication header and return a `SessionTicket`. Subsequent calls\npass the session ticket in the `X-Authorization` header. Entity-model\ncalls additionally use the entity token in the `X-EntityToken` header.\n\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}
