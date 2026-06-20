@@ -10,7 +10,7 @@ description: PlayFab is Microsoft Azure's backend-as-a-service for live games. P
   tasks, CloudScript (Azure Functions), and PlayFab Multiplayer Servers all run on
   this surface. PlayFab is operated as part of Azure Gaming and the documentation
   lives at learn.microsoft.com/en-us/gaming/playfab.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://playfab.com
 created: '2024-01-01'
 modified: '2026-05-30'
@@ -42,7 +42,7 @@ apis:
     registration, segmentation triggers, and analytics events. It is scoped per-title
     at https://[titleId].playfabapi.com/Client and authenticated with a session ticket
     issued from a Login* call.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/client/
   baseURL: https://titleId.playfabapi.com/Client
   tags:
@@ -63,7 +63,7 @@ apis:
     game servers and trusted backends. It mirrors much of the Client API but operates
     with the title's developer secret key and can act on any player, grant items,
     adjust currencies, modify read-only data, and issue server-authoritative writes.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/server/
   baseURL: https://titleId.playfabapi.com/Server
   tags:
@@ -80,7 +80,7 @@ apis:
     items, store configuration, content (CDN) uploads, segments, tasks, policies,
     players (ban, refund, reset), and CloudScript revisions. Authenticated with the
     title developer secret key.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/admin/
   baseURL: https://titleId.playfabapi.com/Admin
   tags:
@@ -96,7 +96,7 @@ apis:
     by the Entity Programming Model that underlies CloudScript using Azure Functions,
     Groups, Data, Profiles, Events, and Multiplayer. Entity tokens scope calls to
     a master player, character, title, group, or namespace entity.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/authentication/
   baseURL: https://titleId.playfabapi.com/Authentication
   tags:
@@ -113,7 +113,7 @@ apis:
     Modern CloudScript using Azure Functions registers Azure Function endpoints that
     can be invoked from clients or servers via ExecuteFunction. Legacy CloudScript
     runs JavaScript revisions stored in the title.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/cloudscript/
   baseURL: https://titleId.playfabapi.com/CloudScript
   tags:
@@ -128,7 +128,7 @@ apis:
   description: The PlayFab Multiplayer API powers PlayFab Multiplayer Servers (managed
     game server hosting on Azure), Party (low-latency voice and data networking),
     Lobby, and matchmaking server build management.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/multiplayer/
   baseURL: https://titleId.playfabapi.com/Multiplayer
   tags:
@@ -144,7 +144,7 @@ apis:
   description: The PlayFab Matchmaking API exposes ticket-based matchmaking, queue
     management, match results, and matchmaking rule configuration on top of PlayFab
     Multiplayer.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/matchmaker/
   baseURL: https://titleId.playfabapi.com/Match
   tags:
@@ -159,7 +159,7 @@ apis:
   description: PlayFab Economy v2 is the modern catalog, inventory, store, and virtual-currency
     surface. It covers catalog item authoring, inventory transactions, transactional
     and subscription stores, item search, and content review workflows for UGC.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/
   baseURL: https://titleId.playfabapi.com/Catalog
   tags:
@@ -178,7 +178,7 @@ apis:
     to any entity (player, title, character, group). It exposes GetFiles, GetObjects,
     InitiateFileUploads, AbortFileUploads, FinalizeFileUploads, SetObjects, and DeleteFiles,
     used for save games, UGC blobs, and per-entity JSON state.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/data/
   baseURL: https://titleId.playfabapi.com/File
   tags:
@@ -193,7 +193,7 @@ apis:
   name: PlayFab Groups API
   description: The PlayFab Groups API supports guilds, clans, parties, and other player-managed
     organizations on the Entity model with roles, memberships, applications, and invitations.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/groups/
   baseURL: https://titleId.playfabapi.com/Group
   tags:
@@ -209,7 +209,7 @@ apis:
   description: The PlayFab Profiles API reads and writes Entity Profiles, including
     display name, language, lineage, and per-entity policies (ACLs) used across the
     Entity-model APIs.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/profiles/
   baseURL: https://titleId.playfabapi.com/Profile
   tags:
@@ -223,7 +223,7 @@ apis:
   name: PlayFab Events API
   description: The PlayFab Events API writes PlayStream and custom telemetry events
     into PlayFab's pipeline for downstream segmentation, rules, and Insights analytics.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/events/
   baseURL: https://titleId.playfabapi.com/Event
   tags:
@@ -239,7 +239,7 @@ apis:
   description: PlayFab Insights is the managed analytics surface (built on Azure Data
     Explorer / Kusto) for querying telemetry generated by PlayFab titles. The Insights
     API manages Insights performance levels and submits analytics queries.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/gaming/playfab/features/analytics/insights/
   baseURL: https://insights.playfab.com
   tags:
@@ -254,7 +254,7 @@ apis:
   name: PlayFab Localization API
   description: The PlayFab Localization API returns the set of languages supported
     by the title and is used by clients to negotiate locale.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/localization/
   baseURL: https://titleId.playfabapi.com/Locale
   tags:
