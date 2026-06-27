@@ -278,7 +278,7 @@ common:
   type: APIReference
 - url: https://learn.microsoft.com/en-us/gaming/playfab/sdks/
   name: PlayFab SDKs
-  type: SDK
+  type: SDKs
 - url: https://learn.microsoft.com/en-us/gaming/playfab/personas/developer
   name: PlayFab for Developers
   type: GettingStarted
@@ -293,7 +293,7 @@ common:
   type: Status
 - url: https://community.playfab.com
   name: PlayFab Community Forums
-  type: Forum
+  type: Forums
 - url: https://github.com/PlayFab
   name: PlayFab on GitHub
   type: GitHubOrganization
