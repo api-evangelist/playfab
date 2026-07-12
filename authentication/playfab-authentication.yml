@@ -1,0 +1,25 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/playfab-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: sessionTicket
+  type: apiKey
+  in: header
+  parameter: X-Authorization
+  description: |-
+    Session ticket returned by a successful `LoginWith*` call. Required
+    for all Client API operations other than login/registration.
+  sources:
+  - openapi/playfab-openapi.yml
+- name: entityToken
+  type: apiKey
+  in: header
+  parameter: X-EntityToken
+  description: Entity token used for Entity-model API calls.
+  sources:
+  - openapi/playfab-openapi.yml

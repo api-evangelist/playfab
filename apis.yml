@@ -264,6 +264,10 @@ apis:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/rest/api/playfab/localization/
 common:
+- type: DomainSecurity
+  url: security/playfab-domain-security.yml
+- type: Authentication
+  url: authentication/playfab-authentication.yml
 - url: https://playfab.com
   name: PlayFab Website
   type: Website
