@@ -264,6 +264,8 @@ apis:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/rest/api/playfab/localization/
 common:
+- type: AgenticAccess
+  url: agentic-access/playfab-agentic-access.yml
 - type: DomainSecurity
   url: security/playfab-domain-security.yml
 - type: Authentication
