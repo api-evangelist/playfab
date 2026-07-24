@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: PlayFab Client Account API
+  description: 'PlayFab is Microsoft Azure''s backend-as-a-service for live games. The
+
+    Client API is the player-facing REST surface used by game clients for
+
+    login, account linking, virtual currency, inventory, friends,
+
+    leaderboards, statistics, player data, cloud script execution,
+
+    multiplayer session lookup, push registration, and analytics events.
+
+
+    Each PlayFab title is scoped to its own subdomain at
+
+    `https://{titleId}.playfabapi.com`, where `{titleId}` is the unique
+
+    title identifier from the PlayFab Game Manager.
+
+
+    Login calls (`LoginWith*`, `RegisterPlayFabUser`) require no
+
+    authentication header and return a `SessionTicket`. Subsequent calls
+
+    pass the session ticket in the `X-Authorization` header. Entity-model
+
+    calls additionally use the entity token in the `X-EntityToken` header.
+
+    '
+  version: 1.0.0
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+servers:
+- url: https://{titleId}.playfabapi.com
+  description: PlayFab title-scoped API server
+  variables:
+    titleId:
+      default: titleId
+      description: Unique PlayFab title identifier.
+security:
+- sessionTicket: []
+tags:
+- name: Account
+  description: PlayFab account metadata.
+paths:
+  /Client/GetTitlePublicKey:
+    post:
+      tags:
+      - Account
+      summary: Returns the title's RSA public key
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - TitleId
+              - TitleSharedSecret
+              properties:
+                TitleId:
+                  type: string
+                TitleSharedSecret:
+                  type: string
+      responses:
+        '200':
+          description: Public key returned.
+  /Client/GetPhotonAuthenticationToken:
+    post:
+      tags:
+      - Account
+      summary: Get a Photon custom authentication token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - PhotonApplicationId
+              properties:
+                PhotonApplicationId:
+                  type: string
+      responses:
+        '200':
+          description: Token returned.
+  /Client/SetPlayerSecret:
+    post:
+      tags:
+      - Account
+      summary: Set the player's secret used to sign API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                PlayerSecret:
+                  type: string
+                EncryptedRequest:
+                  type: string
+      responses:
+        '200':
+          description: Player secret stored.
+components:
+  securitySchemes:
+    sessionTicket:
+      type: apiKey
+      in: header
+      name: X-Authorization
+      description: 'Session ticket returned by a successful `LoginWith*` call. Required
+
+        for all Client API operations other than login/registration.
+
+        '
+    entityToken:
+      type: apiKey
+      in: header
+      name: X-EntityToken
+      description: Entity token used for Entity-model API calls.
