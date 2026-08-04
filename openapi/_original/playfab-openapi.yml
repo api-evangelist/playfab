@@ -1,0 +1,492 @@
+openapi: 3.1.0
+info:
+  title: PlayFab Client API
+  description: |
+    PlayFab is Microsoft Azure's backend-as-a-service for live games. The
+    Client API is the player-facing REST surface used by game clients for
+    login, account linking, virtual currency, inventory, friends,
+    leaderboards, statistics, player data, cloud script execution,
+    multiplayer session lookup, push registration, and analytics events.
+
+    Each PlayFab title is scoped to its own subdomain at
+    `https://{titleId}.playfabapi.com`, where `{titleId}` is the unique
+    title identifier from the PlayFab Game Manager.
+
+    Login calls (`LoginWith*`, `RegisterPlayFabUser`) require no
+    authentication header and return a `SessionTicket`. Subsequent calls
+    pass the session ticket in the `X-Authorization` header. Entity-model
+    calls additionally use the entity token in the `X-EntityToken` header.
+  version: "1.0.0"
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+servers:
+  - url: https://{titleId}.playfabapi.com
+    description: PlayFab title-scoped API server
+    variables:
+      titleId:
+        default: titleId
+        description: Unique PlayFab title identifier.
+security:
+  - sessionTicket: []
+tags:
+  - name: Authentication
+    description: Login, registration, and identity provider sign-in.
+  - name: Account
+    description: PlayFab account metadata.
+paths:
+  /Client/LoginWithPlayFab:
+    post:
+      tags: [Authentication]
+      summary: Sign in with a PlayFab username and password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [Username, Password, TitleId]
+              properties:
+                Username:
+                  type: string
+                Password:
+                  type: string
+                TitleId:
+                  type: string
+                InfoRequestParameters:
+                  $ref: '#/components/schemas/GetPlayerCombinedInfoRequestParams'
+                CustomTags:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+        '400':
+          $ref: '#/components/responses/ApiError'
+  /Client/LoginWithEmailAddress:
+    post:
+      tags: [Authentication]
+      summary: Sign in with an email address and password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [Email, Password, TitleId]
+              properties:
+                Email:
+                  type: string
+                  format: email
+                Password:
+                  type: string
+                  minLength: 6
+                  maxLength: 100
+                TitleId:
+                  type: string
+                InfoRequestParameters:
+                  $ref: '#/components/schemas/GetPlayerCombinedInfoRequestParams'
+                CustomTags:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+        '400':
+          $ref: '#/components/responses/ApiError'
+  /Client/LoginWithCustomID:
+    post:
+      tags: [Authentication]
+      summary: Sign in with a developer-supplied custom identifier
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [CustomId, TitleId]
+              properties:
+                CustomId:
+                  type: string
+                TitleId:
+                  type: string
+                CreateAccount:
+                  type: boolean
+                InfoRequestParameters:
+                  $ref: '#/components/schemas/GetPlayerCombinedInfoRequestParams'
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/LoginWithAndroidDeviceID:
+    post:
+      tags: [Authentication]
+      summary: Sign in with an Android device identifier
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [AndroidDeviceId, TitleId]
+              properties:
+                AndroidDeviceId:
+                  type: string
+                AndroidDevice:
+                  type: string
+                OS:
+                  type: string
+                TitleId:
+                  type: string
+                CreateAccount:
+                  type: boolean
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/LoginWithIOSDeviceID:
+    post:
+      tags: [Authentication]
+      summary: Sign in with an iOS device identifier
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [DeviceId, TitleId]
+              properties:
+                DeviceId:
+                  type: string
+                DeviceModel:
+                  type: string
+                OS:
+                  type: string
+                TitleId:
+                  type: string
+                CreateAccount:
+                  type: boolean
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/LoginWithApple:
+    post:
+      tags: [Authentication]
+      summary: Sign in with a Sign in with Apple identity token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [IdentityToken, TitleId]
+              properties:
+                IdentityToken:
+                  type: string
+                TitleId:
+                  type: string
+                CreateAccount:
+                  type: boolean
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/LoginWithGoogleAccount:
+    post:
+      tags: [Authentication]
+      summary: Sign in with Google account credentials
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [TitleId]
+              properties:
+                ServerAuthCode:
+                  type: string
+                TitleId:
+                  type: string
+                CreateAccount:
+                  type: boolean
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/LoginWithSteam:
+    post:
+      tags: [Authentication]
+      summary: Sign in with a Steam authentication ticket
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [SteamTicket, TitleId]
+              properties:
+                SteamTicket:
+                  type: string
+                TitleId:
+                  type: string
+                CreateAccount:
+                  type: boolean
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/LoginWithXbox:
+    post:
+      tags: [Authentication]
+      summary: Sign in with an Xbox Live token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [XboxToken, TitleId]
+              properties:
+                XboxToken:
+                  type: string
+                TitleId:
+                  type: string
+                CreateAccount:
+                  type: boolean
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/RegisterPlayFabUser:
+    post:
+      tags: [Authentication]
+      summary: Register a new PlayFab user account
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [TitleId]
+              properties:
+                TitleId:
+                  type: string
+                Username:
+                  type: string
+                Email:
+                  type: string
+                  format: email
+                Password:
+                  type: string
+                DisplayName:
+                  type: string
+                RequireBothUsernameAndEmail:
+                  type: boolean
+      responses:
+        '200':
+          description: Account registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultEnvelope'
+  /Client/GetTitlePublicKey:
+    post:
+      tags: [Account]
+      summary: Returns the title's RSA public key
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [TitleId, TitleSharedSecret]
+              properties:
+                TitleId:
+                  type: string
+                TitleSharedSecret:
+                  type: string
+      responses:
+        '200':
+          description: Public key returned.
+  /Client/GetPhotonAuthenticationToken:
+    post:
+      tags: [Account]
+      summary: Get a Photon custom authentication token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [PhotonApplicationId]
+              properties:
+                PhotonApplicationId:
+                  type: string
+      responses:
+        '200':
+          description: Token returned.
+  /Client/SetPlayerSecret:
+    post:
+      tags: [Account]
+      summary: Set the player's secret used to sign API requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                PlayerSecret:
+                  type: string
+                EncryptedRequest:
+                  type: string
+      responses:
+        '200':
+          description: Player secret stored.
+components:
+  securitySchemes:
+    sessionTicket:
+      type: apiKey
+      in: header
+      name: X-Authorization
+      description: |
+        Session ticket returned by a successful `LoginWith*` call. Required
+        for all Client API operations other than login/registration.
+    entityToken:
+      type: apiKey
+      in: header
+      name: X-EntityToken
+      description: Entity token used for Entity-model API calls.
+  responses:
+    ApiError:
+      description: Failed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorWrapper'
+  schemas:
+    LoginResultEnvelope:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        data:
+          $ref: '#/components/schemas/LoginResult'
+    LoginResult:
+      type: object
+      properties:
+        PlayFabId:
+          type: string
+        SessionTicket:
+          type: string
+        NewlyCreated:
+          type: boolean
+        LastLoginTime:
+          type: string
+          format: date-time
+        EntityToken:
+          $ref: '#/components/schemas/EntityTokenResponse'
+        InfoResultPayload:
+          type: object
+          additionalProperties: true
+    EntityTokenResponse:
+      type: object
+      properties:
+        Entity:
+          $ref: '#/components/schemas/EntityKey'
+        EntityToken:
+          type: string
+        TokenExpiration:
+          type: string
+          format: date-time
+    EntityKey:
+      type: object
+      properties:
+        Id:
+          type: string
+        Type:
+          type: string
+    GetPlayerCombinedInfoRequestParams:
+      type: object
+      properties:
+        GetUserAccountInfo:
+          type: boolean
+        GetUserInventory:
+          type: boolean
+        GetUserVirtualCurrency:
+          type: boolean
+        GetUserData:
+          type: boolean
+        GetUserReadOnlyData:
+          type: boolean
+        GetCharacterInventories:
+          type: boolean
+        GetCharacterList:
+          type: boolean
+        GetTitleData:
+          type: boolean
+        GetPlayerStatistics:
+          type: boolean
+        GetPlayerProfile:
+          type: boolean
+    ApiErrorWrapper:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        error:
+          type: string
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        errorDetails:
+          type: object
+          additionalProperties: true

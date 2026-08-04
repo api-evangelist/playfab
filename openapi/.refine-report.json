@@ -1,0 +1,16 @@
+{
+  "provider": "playfab",
+  "sources": [
+    "playfab-account-api-openapi.yml",
+    "playfab-authentication-api-openapi.yml"
+  ],
+  "outputs": [
+    "playfab-account-api-openapi.yml",
+    "playfab-authentication-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
