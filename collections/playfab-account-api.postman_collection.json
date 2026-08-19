@@ -1,0 +1,370 @@
+{
+  "item": [
+    {
+      "id": "d73f9182-f8bd-4e48-9daa-05f37cc34173",
+      "name": "Account",
+      "description": {
+        "content": "PlayFab account metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d66e587-498a-46f8-91f0-910804b1fa98",
+          "name": "Returns the title's RSA public key",
+          "request": {
+            "name": "Returns the title's RSA public key",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "GetTitlePublicKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TitleId\": \"<string>\",\n  \"TitleSharedSecret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59d481f9-cc07-48df-8bdd-750784aa7e13",
+              "name": "Public key returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "GetTitlePublicKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TitleId\": \"<string>\",\n  \"TitleSharedSecret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e98f9f3f-3f9e-49f6-bb9b-cc04291cd745",
+          "name": "Get a Photon custom authentication token",
+          "request": {
+            "name": "Get a Photon custom authentication token",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "GetPhotonAuthenticationToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PhotonApplicationId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1e9a71b0-b6ac-4ff4-948d-34700298e067",
+              "name": "Token returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "GetPhotonAuthenticationToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PhotonApplicationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1aaaacef-637e-4cd3-ae21-32735c0ac078",
+          "name": "Set the player's secret used to sign API requests",
+          "request": {
+            "name": "Set the player's secret used to sign API requests",
+            "description": {},
+            "url": {
+              "path": [
+                "Client",
+                "SetPlayerSecret"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Unique PlayFab title identifier.",
+                  "type": "any",
+                  "value": "{{titleId}}",
+                  "key": "titleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PlayerSecret\": \"<string>\",\n  \"EncryptedRequest\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b82d6520-7a54-4183-adb8-e8ebd8b9e424",
+              "name": "Player secret stored.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Client",
+                    "SetPlayerSecret"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Unique PlayFab title identifier.",
+                      "type": "any",
+                      "value": "{{titleId}}",
+                      "key": "titleId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PlayerSecret\": \"<string>\",\n  \"EncryptedRequest\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Unique PlayFab title identifier.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "titleId",
+      "key": "titleId"
+    },
+    {
+      "type": "string",
+      "value": "https://{{titleId}}.playfabapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "05988584-facd-4024-b2d0-822be94bba95",
+    "name": "PlayFab Client Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PlayFab is Microsoft Azure's backend-as-a-service for live games. The\nClient API is the player-facing REST surface used by game clients for\nlogin, account linking, virtual currency, inventory, friends,\nleaderboards, statistics, player data, cloud script execution,\nmultiplayer session lookup, push registration, and analytics events.\n\nEach PlayFab title is scoped to its own subdomain at\n`https://{titleId}.playfabapi.com`, where `{titleId}` is the unique\ntitle identifier from the PlayFab Game Manager.\n\nLogin calls (`LoginWith*`, `RegisterPlayFabUser`) require no\nauthentication header and return a `SessionTicket`. Subsequent calls\npass the session ticket in the `X-Authorization` header. Entity-model\ncalls additionally use the entity token in the `X-EntityToken` header.\n\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

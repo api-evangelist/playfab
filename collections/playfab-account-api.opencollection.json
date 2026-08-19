@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayFab Client Account API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Authorization",
+      "value": "{{X-Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the title's RSA public key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/GetTitlePublicKey",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the title's RSA public key"
+        },
+        {
+          "info": {
+            "name": "Get a Photon custom authentication token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/GetPhotonAuthenticationToken",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a Photon custom authentication token"
+        },
+        {
+          "info": {
+            "name": "Set the player's secret used to sign API requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{titleId}.playfabapi.com/Client/SetPlayerSecret",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the player's secret used to sign API requests"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
