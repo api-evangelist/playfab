@@ -34,6 +34,22 @@ tags:
 - Authentication
 - Azure
 - Backend
+- Backend-as-a-Service
+- CloudScript
+- Economy
+- Game Backend
+- Game Development
+- Games
+- Leaderboards
+- Matchmaking
+- Microsoft
+- Multiplayer
+- PlayFab
+- REST
+tags_raw:
+- Authentication
+- Azure
+- Backend
 - BaaS
 - CloudScript
 - Economy
@@ -59,6 +75,11 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/client/
   baseURL: https://titleId.playfabapi.com/Client
   tags:
+  - Authentication
+  - Clients
+  - Leaderboards
+  - Players
+  tags_raw:
   - Authentication
   - Client
   - Leaderboards
@@ -199,6 +220,11 @@ apis:
   tags:
   - Data
   - Entity
+  - File
+  - Save Data
+  tags_raw:
+  - Data
+  - Entity
   - Files
   - Save Data
   properties:
@@ -213,6 +239,11 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/groups/
   baseURL: https://titleId.playfabapi.com/Group
   tags:
+  - Clans
+  - Group
+  - Guilds
+  - Social
+  tags_raw:
   - Clans
   - Groups
   - Guilds
@@ -244,6 +275,11 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/events/
   baseURL: https://titleId.playfabapi.com/Event
   tags:
+  - Analytics
+  - Event
+  - PlayStream
+  - Telemetry
+  tags_raw:
   - Analytics
   - Events
   - PlayStream
