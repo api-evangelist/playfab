@@ -10,6 +10,18 @@ description: PlayFab is Microsoft Azure's backend-as-a-service for live games. P
   tasks, CloudScript (Azure Functions), and PlayFab Multiplayer Servers all run on
   this surface. PlayFab is operated as part of Azure Gaming and the documentation
   lives at learn.microsoft.com/en-us/gaming/playfab.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
