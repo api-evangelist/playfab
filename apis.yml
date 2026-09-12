@@ -1,5 +1,6 @@
 aid: playfab
 name: PlayFab
+x-parent: microsoft-xbox
 description: PlayFab is Microsoft Azure's backend-as-a-service for live games. PlayFab
   exposes a large REST API surface (Client, Server, Admin, Authentication, CloudScript,
   Multiplayer, Economy v2, Matchmaking, Insights, Groups, Data, Profiles, Events,
