@@ -92,7 +92,7 @@ apis:
   - Authentication
   - Clients
   - Leaderboards
-  - Players
+  - Player
   tags_raw:
   - Authentication
   - Client
@@ -116,6 +116,10 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/playfab/server/
   baseURL: https://titleId.playfabapi.com/Server
   tags:
+  - Game Servers
+  - Servers
+  - Trusted
+  tags_raw:
   - Game Servers
   - Server
   - Trusted
