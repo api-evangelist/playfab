@@ -1,8 +1,7 @@
 {
   "provider": "playfab",
   "sources": [
-    "playfab-account-api-openapi.yml",
-    "playfab-authentication-api-openapi.yml"
+    "_original/playfab-openapi.yml"
   ],
   "outputs": [
     "playfab-account-api-openapi.yml",
@@ -11,6 +10,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "playfab-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "playfab-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playfab-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

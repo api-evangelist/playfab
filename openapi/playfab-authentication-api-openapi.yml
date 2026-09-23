@@ -1,33 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PlayFab Client Account Authentication API
-  description: 'PlayFab is Microsoft Azure''s backend-as-a-service for live games. The
-
-    Client API is the player-facing REST surface used by game clients for
-
-    login, account linking, virtual currency, inventory, friends,
-
-    leaderboards, statistics, player data, cloud script execution,
-
-    multiplayer session lookup, push registration, and analytics events.
-
-
-    Each PlayFab title is scoped to its own subdomain at
-
-    `https://{titleId}.playfabapi.com`, where `{titleId}` is the unique
-
-    title identifier from the PlayFab Game Manager.
-
-
-    Login calls (`LoginWith*`, `RegisterPlayFabUser`) require no
-
-    authentication header and return a `SessionTicket`. Subsequent calls
-
-    pass the session ticket in the `X-Authorization` header. Entity-model
-
-    calls additionally use the entity token in the `X-EntityToken` header.
-
-    '
+  title: PlayFab Client Authentication API
+  description: PlayFab is Microsoft Azure's backend-as-a-service for live games.
   version: 1.0.0
   contact:
     name: API Evangelist
@@ -84,6 +58,8 @@ paths:
                 $ref: '#/components/schemas/LoginResultEnvelope'
         '400':
           $ref: '#/components/responses/ApiError'
+      operationId: postClientLoginWithPlayFab
+      x-operation-id-source: derived
   /Client/LoginWithEmailAddress:
     post:
       tags:
@@ -124,6 +100,8 @@ paths:
                 $ref: '#/components/schemas/LoginResultEnvelope'
         '400':
           $ref: '#/components/responses/ApiError'
+      operationId: postClientLoginWithEmailAddress
+      x-operation-id-source: derived
   /Client/LoginWithCustomID:
     post:
       tags:
@@ -155,6 +133,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientLoginWithCustomID
+      x-operation-id-source: derived
   /Client/LoginWithAndroidDeviceID:
     post:
       tags:
@@ -188,6 +168,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientLoginWithAndroidDeviceID
+      x-operation-id-source: derived
   /Client/LoginWithIOSDeviceID:
     post:
       tags:
@@ -221,6 +203,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientLoginWithIOSDeviceID
+      x-operation-id-source: derived
   /Client/LoginWithApple:
     post:
       tags:
@@ -250,6 +234,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientLoginWithApple
+      x-operation-id-source: derived
   /Client/LoginWithGoogleAccount:
     post:
       tags:
@@ -278,6 +264,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientLoginWithGoogleAccount
+      x-operation-id-source: derived
   /Client/LoginWithSteam:
     post:
       tags:
@@ -307,6 +295,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientLoginWithSteam
+      x-operation-id-source: derived
   /Client/LoginWithXbox:
     post:
       tags:
@@ -336,6 +326,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientLoginWithXbox
+      x-operation-id-source: derived
   /Client/RegisterPlayFabUser:
     post:
       tags:
@@ -371,6 +363,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResultEnvelope'
+      operationId: postClientRegisterPlayFabUser
+      x-operation-id-source: derived
 components:
   schemas:
     LoginResultEnvelope:
@@ -382,32 +376,6 @@ components:
           type: string
         data:
           $ref: '#/components/schemas/LoginResult'
-    ApiErrorWrapper:
-      type: object
-      properties:
-        code:
-          type: integer
-        status:
-          type: string
-        error:
-          type: string
-        errorCode:
-          type: integer
-        errorMessage:
-          type: string
-        errorDetails:
-          type: object
-          additionalProperties: true
-    EntityTokenResponse:
-      type: object
-      properties:
-        Entity:
-          $ref: '#/components/schemas/EntityKey'
-        EntityToken:
-          type: string
-        TokenExpiration:
-          type: string
-          format: date-time
     EntityKey:
       type: object
       properties:
@@ -432,6 +400,16 @@ components:
         InfoResultPayload:
           type: object
           additionalProperties: true
+    EntityTokenResponse:
+      type: object
+      properties:
+        Entity:
+          $ref: '#/components/schemas/EntityKey'
+        EntityToken:
+          type: string
+        TokenExpiration:
+          type: string
+          format: date-time
     GetPlayerCombinedInfoRequestParams:
       type: object
       properties:
@@ -455,6 +433,22 @@ components:
           type: boolean
         GetPlayerProfile:
           type: boolean
+    ApiErrorWrapper:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        error:
+          type: string
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        errorDetails:
+          type: object
+          additionalProperties: true
   responses:
     ApiError:
       description: Failed request.
