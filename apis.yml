@@ -64,7 +64,7 @@ tags_raw:
 - Authentication
 - Azure
 - Backend
-- BaaS
+- Backend as a Service
 - CloudScript
 - Economy
 - Game Backend
@@ -103,8 +103,6 @@ apis:
     url: https://learn.microsoft.com/en-us/rest/api/playfab/client/
   - type: Authentication
     url: https://learn.microsoft.com/en-us/gaming/playfab/sdks/playfab-authentication
-  - url: graphql/playfab-graphql.md
-    type: GraphQL
 - aid: playfab:playfab-server-api
   name: PlayFab Server API
   description: >-
@@ -143,7 +141,7 @@ apis:
   properties:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/rest/api/playfab/admin/
-- aid: playfab:playfab-authentication-api
+- aid: playfab:playfab-entity-authentication-api
   name: PlayFab Authentication API
   description: >-
     The PlayFab Authentication API issues and validates entity tokens used by the Entity Programming Model
