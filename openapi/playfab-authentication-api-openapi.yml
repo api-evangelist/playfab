@@ -367,15 +367,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    LoginResultEnvelope:
-      type: object
-      properties:
-        code:
-          type: integer
-        status:
-          type: string
-        data:
-          $ref: '#/components/schemas/LoginResult'
     EntityKey:
       type: object
       properties:
@@ -410,6 +401,31 @@ components:
         TokenExpiration:
           type: string
           format: date-time
+    ApiErrorWrapper:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        error:
+          type: string
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        errorDetails:
+          type: object
+          additionalProperties: true
+    LoginResultEnvelope:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        data:
+          $ref: '#/components/schemas/LoginResult'
     GetPlayerCombinedInfoRequestParams:
       type: object
       properties:
@@ -433,22 +449,6 @@ components:
           type: boolean
         GetPlayerProfile:
           type: boolean
-    ApiErrorWrapper:
-      type: object
-      properties:
-        code:
-          type: integer
-        status:
-          type: string
-        error:
-          type: string
-        errorCode:
-          type: integer
-        errorMessage:
-          type: string
-        errorDetails:
-          type: object
-          additionalProperties: true
   responses:
     ApiError:
       description: Failed request.
