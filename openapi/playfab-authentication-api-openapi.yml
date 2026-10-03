@@ -367,13 +367,25 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    EntityKey:
+    EntityTokenResponse:
       type: object
       properties:
-        Id:
+        Entity:
+          $ref: '#/components/schemas/EntityKey'
+        EntityToken:
           type: string
-        Type:
+        TokenExpiration:
           type: string
+          format: date-time
+    LoginResultEnvelope:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        data:
+          $ref: '#/components/schemas/LoginResult'
     LoginResult:
       type: object
       properties:
@@ -391,41 +403,6 @@ components:
         InfoResultPayload:
           type: object
           additionalProperties: true
-    EntityTokenResponse:
-      type: object
-      properties:
-        Entity:
-          $ref: '#/components/schemas/EntityKey'
-        EntityToken:
-          type: string
-        TokenExpiration:
-          type: string
-          format: date-time
-    ApiErrorWrapper:
-      type: object
-      properties:
-        code:
-          type: integer
-        status:
-          type: string
-        error:
-          type: string
-        errorCode:
-          type: integer
-        errorMessage:
-          type: string
-        errorDetails:
-          type: object
-          additionalProperties: true
-    LoginResultEnvelope:
-      type: object
-      properties:
-        code:
-          type: integer
-        status:
-          type: string
-        data:
-          $ref: '#/components/schemas/LoginResult'
     GetPlayerCombinedInfoRequestParams:
       type: object
       properties:
@@ -449,6 +426,29 @@ components:
           type: boolean
         GetPlayerProfile:
           type: boolean
+    EntityKey:
+      type: object
+      properties:
+        Id:
+          type: string
+        Type:
+          type: string
+    ApiErrorWrapper:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        error:
+          type: string
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        errorDetails:
+          type: object
+          additionalProperties: true
   responses:
     ApiError:
       description: Failed request.
