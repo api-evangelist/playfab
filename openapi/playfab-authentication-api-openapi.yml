@@ -367,25 +367,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    EntityTokenResponse:
+    EntityKey:
       type: object
       properties:
-        Entity:
-          $ref: '#/components/schemas/EntityKey'
-        EntityToken:
+        Id:
           type: string
-        TokenExpiration:
+        Type:
           type: string
-          format: date-time
-    LoginResultEnvelope:
-      type: object
-      properties:
-        code:
-          type: integer
-        status:
-          type: string
-        data:
-          $ref: '#/components/schemas/LoginResult'
     LoginResult:
       type: object
       properties:
@@ -401,6 +389,32 @@ components:
         EntityToken:
           $ref: '#/components/schemas/EntityTokenResponse'
         InfoResultPayload:
+          type: object
+          additionalProperties: true
+    EntityTokenResponse:
+      type: object
+      properties:
+        Entity:
+          $ref: '#/components/schemas/EntityKey'
+        EntityToken:
+          type: string
+        TokenExpiration:
+          type: string
+          format: date-time
+    ApiErrorWrapper:
+      type: object
+      properties:
+        code:
+          type: integer
+        status:
+          type: string
+        error:
+          type: string
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        errorDetails:
           type: object
           additionalProperties: true
     GetPlayerCombinedInfoRequestParams:
@@ -426,29 +440,15 @@ components:
           type: boolean
         GetPlayerProfile:
           type: boolean
-    EntityKey:
-      type: object
-      properties:
-        Id:
-          type: string
-        Type:
-          type: string
-    ApiErrorWrapper:
+    LoginResultEnvelope:
       type: object
       properties:
         code:
           type: integer
         status:
           type: string
-        error:
-          type: string
-        errorCode:
-          type: integer
-        errorMessage:
-          type: string
-        errorDetails:
-          type: object
-          additionalProperties: true
+        data:
+          $ref: '#/components/schemas/LoginResult'
   responses:
     ApiError:
       description: Failed request.
